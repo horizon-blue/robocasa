@@ -1,10 +1,8 @@
-import os
-import h5py
 import json
-import torch
-import numpy as np
+import os
 
-import robocasa.utils.robomimic.robomimic_torch_utils as TorchUtils
+import h5py
+import numpy as np
 
 
 def get_env_metadata_from_dataset(dataset_path):
@@ -29,6 +27,10 @@ def get_env_metadata_from_dataset(dataset_path):
 
 
 def extract_action_dict(dataset):
+    import torch
+
+    import robocasa.utils.robomimic.robomimic_torch_utils as TorchUtils
+
     # find files
     f = h5py.File(os.path.expanduser(dataset), mode="r+")
 

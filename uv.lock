@@ -2743,7 +2743,7 @@ requires-dist = [
     { name = "pillow" },
     { name = "pynput" },
     { name = "pyyaml" },
-    { name = "robosuite", git = "https://github.com/ARISE-Initiative/robosuite?rev=aaa8b9b214ce8e77e82926d677b4d61d55e577ab" },
+    { name = "robosuite", git = "https://github.com/ARISE-Initiative/robosuite" },
     { name = "scipy", specifier = ">=1.15.3" },
     { name = "termcolor" },
     { name = "tianshou", marker = "extra == 'extra'", specifier = "==0.4.10" },
@@ -2754,7 +2754,7 @@ provides-extras = ["extra"]
 [[package]]
 name = "robosuite"
 version = "1.5.2"
-source = { git = "https://github.com/ARISE-Initiative/robosuite?rev=aaa8b9b214ce8e77e82926d677b4d61d55e577ab#aaa8b9b214ce8e77e82926d677b4d61d55e577ab" }
+source = { git = "https://github.com/ARISE-Initiative/robosuite#aaa8b9b214ce8e77e82926d677b4d61d55e577ab" }
 dependencies = [
     { name = "mujoco" },
     { name = "numba" },

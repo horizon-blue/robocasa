@@ -9,14 +9,26 @@ from zipfile import ZipFile
 from termcolor import colored
 from tqdm import tqdm
 
-import robocasa
+from robocasa.models import assets_root, default_assets_root
 
 # path to the box_links.json shipped with robocasa
-BOX_LINKS_PATH = os.path.join(
-    robocasa.__path__[0], "models", "assets", "box_links", "box_links_assets.json"
-)
+BOX_LINKS_PATH = os.path.join(default_assets_root, "box_links", "box_links_assets.json")
 with open(BOX_LINKS_PATH, "r") as f:
     BOX_LINKS = json.load(f)
+
+
+def copy_default_assets_to_user_assets_root():
+    """
+    Copies the default assets to the user-specified assets root (if they are
+    not the same).
+    """
+    if default_assets_root != assets_root:
+        try:
+            print(f"Copying default assets to {assets_root}...")
+            shutil.copytree(default_assets_root, assets_root, dirs_exist_ok=True)
+        except Exception as e:
+            print(f"Error copying assets: {e}")
+            raise e
 
 
 def _get_direct_download_url(shared_url):
@@ -35,38 +47,38 @@ DOWNLOAD_ASSET_REGISTRY = {
     "tex": dict(
         message="Downloading environment textures",
         url=_get_direct_download_url(BOX_LINKS["textures"]),
-        folder=os.path.join(robocasa.__path__[0], "models/assets/textures"),
+        folder=os.path.join(assets_root, "textures"),
         check_folder_exists=False,
     ),
     "tex_generative": dict(
         message="Downloading AI-generated environment textures",
         url=_get_direct_download_url(BOX_LINKS["generative_textures"]),
-        folder=os.path.join(robocasa.__path__[0], "models/assets/generative_textures"),
+        folder=os.path.join(assets_root, "generative_textures"),
         check_folder_exists=False,
     ),
     "fixtures_lw": dict(
         message="Downloading lightwheel fixtures",
         url=_get_direct_download_url(BOX_LINKS["fixtures_lightwheel"]),
-        folder=os.path.join(robocasa.__path__[0], "models/assets/fixtures"),
+        folder=os.path.join(assets_root, "fixtures"),
         check_folder_exists=False,
     ),
     ### objects ###
     "objs_objaverse": dict(
         message="Downloading objaverse objects",
         url=_get_direct_download_url(BOX_LINKS["objaverse"]),
-        folder=os.path.join(robocasa.__path__[0], "models/assets/objects/objaverse"),
+        folder=os.path.join(assets_root, "objects/objaverse"),
         check_folder_exists=False,
     ),
     "objs_aigen": dict(
         message="Downloading AI-generated objects",
         url=_get_direct_download_url(BOX_LINKS["aigen_objs"]),
-        folder=os.path.join(robocasa.__path__[0], "models/assets/objects/aigen_objs"),
+        folder=os.path.join(assets_root, "objects/aigen_objs"),
         check_folder_exists=False,
     ),
     "objs_lw": dict(
         message="Downloading lightwheel objects",
         url=_get_direct_download_url(BOX_LINKS["objects_lightwheel"]),
-        folder=os.path.join(robocasa.__path__[0], "models/assets/objects/lightwheel"),
+        folder=os.path.join(assets_root, "objects/lightwheel"),
         check_folder_exists=False,
     ),
 }
@@ -241,5 +253,15 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
     types = args.type
+
+    if os.path.exists(assets_root) and assets_root != default_assets_root:
+        ans = input("{} already exists! \noverwrite? (y/n) ".format(assets_root))
+        if ans == "y":
+            print(colored("Proceeding.", "yellow"))
+        else:
+            print(colored("Skipping download.\n", "yellow"))
+            exit()
+
+    copy_default_assets_to_user_assets_root()
 
     download_kitchen_assets(types)

@@ -39,7 +39,7 @@ dependencies = [
     "lxml",
     "hidapi",
     "gymnasium",
-    "robosuite @ git+https://github.com/ARISE-Initiative/robosuite@aaa8b9b214ce8e77e82926d677b4d61d55e577ab",
+    "robosuite @ git+https://github.com/ARISE-Initiative/robosuite",
 ]
 
 [project.urls]

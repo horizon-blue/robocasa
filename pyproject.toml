@@ -1,0 +1,59 @@
+[project]
+name = "robocasa"
+version = "1.0.0"
+description = "RoboCasa365: A Large-Scale Simulation Framework for Training and Benchmarking Generalist Robots"
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.11"
+authors = [
+    { name = "Soroush Nasiriany" },
+    { name = "Sepehr Nasiriany" },
+    { name = "Abhiram Maddukuri" },
+    { name = "Yuke Zhu" },
+]
+maintainers = [{ name = "Soroush Nasiriany", email = "soroush@cs.utexas.edu" }]
+keywords = ["robotics", "simulation", "mujoco", "benchmark"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = [
+    "numpy==2.2.5",
+    "numba==0.61.2",
+    "scipy==1.15.3",
+    "mujoco==3.3.1",
+    "pygame",
+    "Pillow",
+    "opencv-python",
+    "pyyaml",
+    "pynput",
+    "tqdm",
+    "termcolor",
+    "imageio",
+    "h5py",
+    "lxml",
+    "hidapi",
+    "tianshou==0.4.10",
+    "lerobot==0.3.3",
+    "gymnasium",
+]
+
+[project.urls]
+Homepage = "https://github.com/robocasa/robocasa"
+
+[project.optional-dependencies]
+dev = []
+
+[build-system]
+requires = ["uv_build>=0.10.9,<0.11.0"]
+build-backend = "uv_build"
+
+[tool.uv.build-backend]
+module-name = "robocasa"
+module-root = ""
